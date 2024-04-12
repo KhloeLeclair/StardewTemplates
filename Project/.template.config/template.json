@@ -1,0 +1,152 @@
+{
+	"$schema": "https://json.schemastore.org/template",
+
+	"author": "Khloe Leclair",
+	"classifications": [ "Common", "Library", "Games", "SMAPI" ],
+
+	"identity": "Leclair.Stardew.SimpleTemplate",
+	"name": "SMAPI Single Mod Template",
+	"description": "A simple template for a single Stardew Valley mod using SMAPI.",
+	"shortName": "smapimod",
+	"sourceName": "TemplateProject",
+	"tags": {
+		"language": "C#",
+		"type": "project"
+	},
+
+	"sources": [
+		{
+			"source": "./",
+			"target": "./",
+			"include": [
+				"**/*"
+			],
+			"exclude": [
+				"**/[Bb]in/**",
+				"**/[Oo]bj/**",
+				".template.config/**/*",
+				"**/*.filelist",
+				"**/*.user",
+				"**/*.lock.json"
+			]
+		}
+	],
+
+	"symbols": {
+		"Author": {
+			"type": "parameter",
+			"datatype": "text",
+			"description": "Your name, to be included as the author of the mod.",
+			"isRequired": false
+		},
+
+		"Description": {
+			"type": "parameter",
+			"datatype": "text",
+			"description": "A description for your mod, to be included in its manifest.",
+			"isRequired": false,
+			"defaultValue": "",
+			"replaces": "DESCRIPTION_HERE"
+		},
+
+		"CurrentUserName": {
+			"type":"bind",
+			"binding": "env:USERNAME"
+		},
+
+		"CurrentUser": {
+			"type":"bind",
+			"binding": "env:USER"
+		},
+
+		"CurrentUsernameOrUser": {
+			"type":"generated",
+			"generator": "coalesce",
+			"parameters": {
+				"sourceVariableName": "CurrentUserName",
+				"fallbackVariableName": "CurrentUser"
+			}
+		},
+
+		"ActualAuthor": {
+			"type":"generated",
+			"generator": "coalesce",
+			"parameters": {
+				"sourceVariableName": "Author",
+				"fallbackVariableName": "CurrentUsernameOrUser"
+			},
+			"replaces": "YOUR_NAME_HERE"
+		},
+
+		"UniqueId": {
+			"type": "parameter",
+			"datatype": "text",
+			"description": "Your mod's Unique Id. This will be automatically generated using your name and your project's name, but you can use this field to override it.",
+			"isRequired": false
+		},
+
+		"SafeAuthor": {
+			"type": "derived",
+			"valueSource": "ActualAuthor",
+			"valueTransform": "SafeForUniqueId"
+		},
+
+		"BasicName": {
+			"type": "derived",
+			"valueSource": "name",
+			"valueTransform": "DoNothing",
+			"replaces": "NAME_HERE"
+		},
+
+		"SafeName": {
+			"type": "derived",
+			"valueSource": "name",
+			"valueTransform": "SafeForUniqueId",
+			"replaces": "SafeProjectName"
+		},
+
+		"ComputedUniqueId": {
+			"type": "generated",
+			"generator": "join",
+			"parameters": {
+				"symbols": [
+					{
+						"type": "ref",
+						"value": "SafeAuthor"
+					},
+					{
+						"type": "ref",
+						"value": "SafeName"
+					}
+				],
+				"separator": "."
+			}
+		},
+
+		"ActualUniqueId": {
+			"type": "generated",
+			"generator": "coalesce",
+			"parameters": {
+				"sourceVariableName": "UniqueId",
+				"fallbackVariableName": "ComputedUniqueId"
+			},
+			"replaces": "UNIQUE_ID_HERE"
+		}
+
+	},
+
+	"forms": {
+		"DoNothing": {
+			"identifier": "replace",
+			"pattern": "THIS_DOES_NOTHING",
+			"replacement": "THIS_DOES_NOTHING"
+		},
+
+		"SafeForUniqueId": {
+			"identifier": "replace",
+			"pattern": "[^a-zA-Z0-9_.]+",
+			"replacement": ""
+		}
+	}
+
+}

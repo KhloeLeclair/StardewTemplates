@@ -1,0 +1,119 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Identity -->
+  <PropertyGroup>
+    <AssemblyName>SafeProjectName</AssemblyName>
+    <RootNamespace>SafeProjectName</RootNamespace>
+
+    <!--  ModManifestBuilder uses the following entries to automatically
+          build a manifest.json file for your mod whenever you build
+          the project.
+
+          For more on how ModManifestBuilder works, you can visit:
+          https://github.com/KhloeLeclair/Stardew-ModManifestBuilder/blob/main/README.md
+      -->
+
+    <!--  Your mod's UniqueId can only contain the characters
+          a-z, A-Z, 0-9, _, -, and .
+      -->
+    <UniqueId>UNIQUE_ID_HERE</UniqueId>
+
+    <Name>NAME_HERE</Name>
+    <Version>1.0.0</Version>
+    <Authors>YOUR_NAME_HERE</Authors>
+    <Description>DESCRIPTION_HERE</Description>
+
+    <!--  If you have multiple update keys, separate them with semi-colons (;).
+          For details about how to format your update keys, check the wiki
+          entry on update checks out here:
+          https://stardewvalleywiki.com/Modding:Modder_Guide/APIs/Update_checks
+      -->
+    <UpdateKeys></UpdateKeys>
+
+    <!--  Minimum Versions: ModManifestBuilder will automatically set the
+		      MinimumApiVersion and MinimumGameVersion of your mod based on the
+			    versions of SMAPI / the game you build against. Change or remove
+			    these lines to change that behavior.
+      -->
+		<MinimumApiVersion>auto</MinimumApiVersion>
+		<MinimumGameVersion>auto</MinimumGameVersion>
+  </PropertyGroup>
+
+  <!--  Dependencies
+
+        ModManifestBuilder uses these entries to set up dependencies for your
+        mod, both as entries in your manifest.json file and, optionally, as
+        references in your project. Check ModManifestBuilder's documentation
+        for more details.
+    -->
+  <ItemGroup>
+    <!--  This example introduces a soft dependency. No references are added
+          to your project, since Reference isn't set to true. Additionally,
+          the manifest.json entry for this dependency has its IsRequired flag
+          set to false.
+      -->
+    <SMAPIDependency
+      Include="spacechase0.GenericModConfigMenu"
+      Required="false"
+    />
+
+    <!--  This example introduces a hard dependency. A reference to the mod
+          is added to your project, letting you use its types directly,
+          but forcing users to have that mod installed in order to use yours.
+          Be careful when deciding to add other mods as references.
+
+          This entry is commented out, but you can uncomment it to actually
+          add the reference and depndency.
+      -->
+    <!-- <SMAPIDependency
+      Include="spacechase0.SpaceCore"
+      Reference="true"
+    /> -->
+  </ItemGroup>
+
+  <!-- Build Settings -->
+  <PropertyGroup>
+    <!-- Stardew Valley 1.6 uses .NET Core 6.0. You must target it. -->
+		<TargetFramework>net6.0</TargetFramework>
+
+    <!-- Allow us to use the most up to date C# language features. -->
+    <LangVersion>latest</LangVersion>
+
+    <!-- Enable the use of nullable types to improve code quality. -->
+    <Nullable>enable</Nullable>
+
+    <!--  This next line stops ModBuildConfig from packaging your mod for
+          release unless you build it in the Release configuration. You
+          should never release a Debug build of a mod, and this helps
+          introduce a barrier to doing so.
+      -->
+    <EnableModZip Condition="$(Configuration) != 'Release'">false</EnableModZip>
+
+    <!--  Raise any warnings from ModManifestBuilder to the severity of
+          error to prevent your project from building in Release configuration
+          if there are validation issues with your manifest.
+     -->
+    <ManifestWarningsAsErrors Condition="$(Configuration) == 'Release'">true</ManifestWarningsAsErrors>
+	</PropertyGroup>
+
+  <!-- NuGet Packages and Other References -->
+  <ItemGroup>
+    <!--  ModBuildConfig handles the behind the scenes of setting up a mod
+		      for Stardew Valley. This is absolutely required.
+      -->
+		<PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.1.1" />
+
+    <!--  ModTranslationClassBuilder generates a strongly typed class for
+          accessing your i18n strings, which helps prevent issues when
+          using them.
+      -->
+    <PackageReference Include="Pathoschild.Stardew.ModTranslationClassBuilder" Version="2.0.1" />
+
+		<!--  ModManifestBuilder updates your mod's manifest.json file with
+		      information from this project file whenever you build your
+			    project.
+      -->
+		<PackageReference Include="Leclair.Stardew.ModManifestBuilder" Version="2.3.1" />
+  </ItemGroup>
+
+</Project>
