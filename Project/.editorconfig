@@ -35,19 +35,3 @@ csharp_style_namespace_declarations = file_scoped:silent
 dotnet_diagnostic.AvoidImplicitNetFieldCast.severity=error
 dotnet_diagnostic.AvoidNetField.severity=error
 dotnet_diagnostic.AvoidObsoleteField.severity=warning
-
-# New Lines
-csharp_new_line_before_open_brace = none
-csharp_new_line_before_else = false
-csharp_new_line_before_catch = false
-csharp_new_line_before_finally = false
-csharp_new_line_before_members_in_object_initializers = true
-csharp_new_line_before_members_in_anonymous_types = true
-csharp_new_line_between_query_expression_clauses = true
-
-# Indentation
-csharp_indent_case_contents = true
-csharp_indent_switch_labels = true
-csharp_indent_labels = one_less_than_current
-csharp_indent_block_contents = true
-csharp_indent_braces = false
