@@ -82,6 +82,12 @@
     <!-- Enable the use of nullable types to improve code quality. -->
     <Nullable>enable</Nullable>
 
+    <!--  ModBuildConfig comes with sensible defaults, but you may need to
+          configure it to fit your specific environment and needs. For
+          help configuring it, please check its documentation at:
+          https://github.com/Pathoschild/SMAPI/blob/develop/docs/technical/mod-package.md
+      -->
+
     <!--  This next line stops ModBuildConfig from packaging your mod for
           release unless you build it in the Release configuration. You
           should never release a Debug build of a mod, and this helps
@@ -91,7 +97,12 @@
 
     <!--  Raise any warnings from ModManifestBuilder to the severity of
           error to prevent your project from building in Release configuration
-          if there are validation issues with your manifest.
+          if there are validation issues with your manifest. This will
+          prevent you from releasing because of issues with dependencies,
+          missing manifest properties, or invalid values.
+
+          If you don't want that sort of thing to prevent a successful
+          build, just remove this next line.
      -->
     <ManifestWarningsAsErrors Condition="$(Configuration) == 'Release'">true</ManifestWarningsAsErrors>
 	</PropertyGroup>
